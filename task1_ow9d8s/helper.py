@@ -1,5 +1,7 @@
 import numpy as np
 import operator as op
+from normalEq import *
+import sys
 
 def ncr(n, r):
     r = min(r, n-r)
@@ -7,6 +9,7 @@ def ncr(n, r):
     numer = reduce(op.mul, xrange(n, n-r, -1))
     denom = reduce(op.mul, xrange(1, r+1))
     return numer//denom
+       
 
 def get_train_cross_dataset(X_arr, y_arr, i):
     """ i must be the i'th iteration from k """
@@ -19,8 +22,8 @@ def get_train_cross_dataset(X_arr, y_arr, i):
     return X_train, y_train, X_cv, y_cv
 
 def rms(pred, y):
-    out = (1./pred.shape[0]) * np.sum(np.square(pred - y), axis=0)
-    return out**0.5
+    out = np.sqrt(((pred - y) ** 2).mean())
+    return out
 
 
 def poly2d_kernel(X):
@@ -52,6 +55,7 @@ def poly2d_kernel(X):
 
 
 def poly3d_kernel(X):
+    """ Implement a more naive implementation maybe? (with the counter variable iterating through each value) """
     """ Will return a new matrix (with new shapes!) X_out that will include permutations of degree=degree as it's elements """
     """ Let's keep this naive, and simple """
     #columns number of the new X_out

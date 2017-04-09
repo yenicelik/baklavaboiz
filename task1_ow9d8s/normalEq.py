@@ -4,8 +4,12 @@ def reg_normal_eq(X, y, lam):
 
 	n = X.shape[1]
 
+    #identity = np.identity(n)
+    #identity[0,0] = 0 #as was suggested by andrew...
+
 	lhs = lam * np.identity(n) + np.dot(X.transpose(), X)
 	rhs = np.dot(X.transpose(), y)
+
 
 	return np.linalg.solve(lhs, rhs)
 
