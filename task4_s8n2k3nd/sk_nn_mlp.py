@@ -4,6 +4,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier
+import sys
 
 
 
@@ -38,6 +39,8 @@ print("y:")
 print(y.shape)
 print("X_test")
 print(X_test.shape)
+
+sys.exit(0)
 
 '''
 # FEATURE EXPANSION

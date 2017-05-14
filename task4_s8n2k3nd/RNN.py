@@ -9,6 +9,10 @@ from sklearn.metrics import accuracy_score
 import sys
 import matplotlib.pyplot as plt
 from matplotlib.pylab import savefig
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers.core import Reshape
 
 from keras.layers.normalization import BatchNormalization
 
@@ -72,28 +76,17 @@ epoch_size = 120 #120 #250
 dropout_rate = 0.5
 
 model = Sequential()
-# Dense(64) is a fully-connected layer with 64 hidden units.
-# in the first layer, you must specify the expected input data shape:
-# here, 20-dimensional vectors.
-#model.add(BatchNormalization(input_shape=[128]))
-#model.add(Dense(700))
-model.add(Dense(700, input_dim=128))
-#model.add(BatchNormalization())
-model.add(Activation("relu"))
-model.add(Dropout(dropout_rate))
-model.add(Dense(350))
-#model.add(BatchNormalization())
-model.add(Activation("relu"))
-model.add(Dropout(dropout_rate))
-model.add(Dense(125))
-#model.add(BatchNormalization())
-model.add(Activation("relu"))
-model.add(Dropout(dropout_rate))
+model.add(Reshape((128, 1), input_shape=[128]))
+model.add(LSTM(128, return_sequences=True))
+model.add(LSTM(64, return_sequences=True))
+model.add(LSTM(32))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
+
+model.summary()
 
 
 train_list = []
